@@ -43,7 +43,7 @@
         ;;
     esac
     echo checking if new user is a sudoer
-    sudo -u ${username} /etc/passwd
+    sudo -u ${username} cat /etc/passwd
 
     sudo sed -i "s/.*AllowUsers.*/AllowUsers ${username}/g" /etc/ssh/sshd_config
     sudo sed -i "s/.*RSAAuthentication.*/RSAAuthentication yes/g" /etc/ssh/sshd_config
@@ -70,4 +70,5 @@
     sudo chmod 700 /home/${username}/.bashrc
     sudo chown ${username}:${username} /home/${username}/.bash_aliases
     sudo chmod 700 /home/${username}/.bash_aliases
+    echo provisioning ended restarting ssh
     service sshd restart

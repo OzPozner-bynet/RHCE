@@ -4,7 +4,7 @@
     username=$BOX_USER_NAME
     password=$BOX_USER_PASSWORD
     echo ********** setting hostname  ************
-    sudo hostnamectl set-hostname $BOX_NAME
+    sudo hostnamectl set-hostname $BOX_HOSTNAME
     echo ********** updating yum  ************
     if sudo grep -Fxq "18.192.40.85" /etc/hosts >/dev/null; then
       echo "host file is fine nothing to do"
@@ -24,7 +24,8 @@
     #  ${password}
     #  ${password}
     #  EOD
-    echo -e "${password}\${password}" | (passwd ${username})
+    #echo -e "${password}\${password}" | (sudo passwd ${username})
+    echo "$username:$password" | sudo chpasswd
     fi
     
     echo ********** fixing sshd  ************

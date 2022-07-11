@@ -81,11 +81,13 @@ Vagrant.configure("2") do |config|
    config.vm.provision "shell", path: "script.sh", env: {
     "BOX_USER_NAME" => ENV["BOX_USER_NAME"],
     "BOX_USER_PASSWORD" => ENV["BOX_USER_PASSWORD"],
-    "BOX_NAME"=>ENV['BOX_NAME'],
+    "BOX_HOSTNAME"=>ENV['BOX_HOSTNAME'],
     "REDHAT_USER_NAME"=>ENV["REDHAT_USER_NAME"],
     "REDHAT_USER_PASS"=>ENV["REDHAT_USER_PASS"]
    }
    $script1 = <<-SCRIPT
+     sudo dnf install -y nano
+     sudo cp /vagrant_data/hosts /etc/hosts
    SCRIPT
    config.vm.provision "shell", inline: $script1
 
